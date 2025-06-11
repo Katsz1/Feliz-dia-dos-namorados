@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dia dos Namorados</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,129 +11,170 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Great Vibes', cursive;
+    body, html {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      background: linear-gradient(to bottom, #b3ecff, #e6f9ff);
-      transition: background 1s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .container {
+    body {
+      background: #fce4ec;
+      background-image: url('https://i.imgur.com/mTF2Cev.png'); /* imagem com flores suaves */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       display: flex;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      height: 100vh;
+      justify-content: center;
       flex-direction: column;
-      padding: 20px;
-      position: relative;
+      transition: background 1s ease;
     }
 
     .card-btn {
       background: none;
       border: none;
+      font-size: 4em;
       cursor: pointer;
-      animation: pulse 2s infinite;
+      transition: transform 0.3s;
+      z-index: 10;
     }
 
-    .card-icon {
-      width: 120px;
+    .card-btn:hover {
+      transform: scale(1.1);
     }
 
-    .message {
+    .message-box, .love-btn, .space-message, .restart-btn {
       display: none;
-      font-size: 2rem;
-      color: #2e4d4d;
-      animation: fadeIn 2s forwards;
+      text-align: center;
+      z-index: 10;
     }
 
-    .love-button, .restart-btn {
-      background: #336699;
+    .message-box p {
+      font-size: 2em;
+      margin: 10px 0;
+      color: #6a1b9a;
+      font-family: 'Georgia', serif;
+    }
+
+    .love-btn button {
+      padding: 12px 24px;
+      font-size: 1.2em;
+      background-color: #9c27b0;
       color: white;
-      padding: 15px 25px;
       border: none;
       border-radius: 30px;
-      font-size: 1.2em;
+      cursor: pointer;
       margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .space-message {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 1.8em;
+      font-family: 'Georgia', serif;
+    }
+
+    .restart-btn button {
+      position: absolute;
+      bottom: 30px;
+      background: #1e88e5;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 20px;
+      font-size: 1em;
       cursor: pointer;
     }
 
     .star {
-      position: fixed;
-      top: 0;
+      position: absolute;
       width: 2px;
       height: 2px;
       background: white;
-      animation: fallStar 5s linear infinite;
-      z-index: 1;
+      border-radius: 50%;
+      animation: fall 5s linear infinite;
     }
 
-    .stars-active {
-      background: #000;
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(-50px);
+        opacity: 0;
+      }
     }
 
-    @keyframes fallStar {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .waterfall {
-      background: url('https://media.giphy.com/media/1kUklavgr8M8g/giphy.gif') no-repeat center center/cover;
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 <body>
-  <div class="container waterfall" id="main">
-    <button class="card-btn" id="openCard">
-      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="card-icon" alt="Carta">
-    </button>
+  <button class="card-btn" id="openCard">💌</button>
 
-    <div class="message" id="msg">
-      Feliz dia dos namorados, você é especial, meu amor, minha estrelinha, eu te amo muito.
-    </div>
+  <div class="message-box" id="messageBox">
+    <p>FELIZ DIA DOS NAMORADOS MEU AMOR ❤</p>
+    <p>Você é a luz que ilumina meus dias ☀</p>
+    <p>Eu te amo muito, minha estrelinha ✨</p>
+    <p>Juntos para sempre 🌺</p>
+  </div>
 
-    <button class="love-button" id="loveBtn" style="display:none;">Quer saber o quanto te amo?</button>
+  <div class="love-btn" id="loveBtn">
+    <button>Quer saber o quanto te amo?</button>
+  </div>
+
+  <div class="space-message" id="spaceMessage">
+    Na mesma quantidade das estrelas infinitas no céu
+  </div>
+
+  <div class="restart-btn" id="restartBtn">
+    <button>Recomeçar</button>
   </div>
 
   <script>
-    const cardBtn = document.getElementById("openCard");
+    const openCard = document.getElementById("openCard");
+    const messageBox = document.getElementById("messageBox");
     const loveBtn = document.getElementById("loveBtn");
-    const msg = document.getElementById("msg");
-    const main = document.getElementById("main");
+    const spaceMessage = document.getElementById("spaceMessage");
+    const restartBtn = document.getElementById("restartBtn");
 
-    cardBtn.addEventListener("click", () => {
-      cardBtn.style.display = "none";
-      msg.style.display = "block";
+    openCard.addEventListener("click", () => {
+      openCard.style.display = "none";
+      messageBox.style.display = "block";
       loveBtn.style.display = "block";
     });
 
-    loveBtn.addEventListener("click", () => {
-      document.body.classList.add("stars-active");
-      main.classList.remove("waterfall");
-      main.innerHTML = `
-        <div class="message" style="color: white; font-size: 1.5rem;">Na mesma quantidade das estrelas infinitas no céu</div>
-        <button class="restart-btn" onclick="location.reload()">Recomeçar</button>
-      `;
+    loveBtn.querySelector("button").addEventListener("click", () => {
+      document.body.style.background = "#0d1b2a"; // fundo azul escuro
+      document.body.style.backgroundImage = "none";
+      messageBox.style.display = "none";
+      loveBtn.style.display = "none";
+      spaceMessage.style.display = "block";
+      restartBtn.style.display = "block";
+      createStars(100);
+    });
 
-      setInterval(() => {
-        let star = document.createElement("div");
+    restartBtn.querySelector("button").addEventListener("click", () => {
+      location.reload();
+    });
+
+    function createStars(count) {
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("div");
         star.classList.add("star");
         star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.top = "-" + Math.random() * 100 + "px";
+        star.style.animationDuration = (Math.random() * 3 + 2) + "s";
         document.body.appendChild(star);
-        setTimeout(() => star.remove(), 5000);
-      }, 100);
-    });
+      }
+    }
   </script>
 </body>
 </html>
