@@ -10,219 +10,196 @@
       padding: 0;
       box-sizing: border-box;
     }
-
-    body, html {
-      width: 100%;
+    html, body {
       height: 100%;
       overflow: hidden;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     body {
-      background: #ffd1dc;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      background: #ffdce5;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       flex-direction: column;
       transition: background 1s ease;
     }
-
+    #heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
     .heart {
       position: absolute;
       width: 10px;
       height: 10px;
-      background: pink;
-      transform: rotate(45deg);
-      animation: fallHeart 10s linear infinite;
-    }
-
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: pink;
+      background-color: pink;
       border-radius: 50%;
+      animation: fall linear infinite;
     }
-
-    .heart::before {
-      top: -5px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -5px;
-      top: 0;
-    }
-
-    @keyframes fallHeart {
-      0% {
-        transform: translateY(-10px) rotate(45deg);
+    @keyframes fall {
+      from {
+        transform: translateY(-10px);
         opacity: 1;
       }
-      100% {
-        transform: translateY(100vh) rotate(45deg);
+      to {
+        transform: translateY(100vh);
         opacity: 0;
       }
     }
-
-    .card-btn {
-      background: none;
-      border: none;
-      font-size: 4em;
+    .card-button {
+      width: 100px;
+      height: 70px;
+      background: white;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s;
-      z-index: 10;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff69b4;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1;
     }
-
-    .card-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .message-box, .love-btn, .space-message, .restart-btn {
+    .message {
       display: none;
       text-align: center;
-      z-index: 10;
-    }
-
-    .message-box p {
-      font-size: 2em;
-      margin: 10px 0;
-      color: #6a1b9a;
-      font-family: 'Georgia', serif;
-    }
-
-    .love-btn button {
-      padding: 12px 24px;
-      font-size: 1.2em;
-      background-color: #9c27b0;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .space-message {
-      position: absolute;
-      top: 20%;
-      width: 100%;
-      text-align: center;
-      color: white;
+      color: #b30059;
       font-size: 1.8em;
-      font-family: 'Georgia', serif;
+      line-height: 1.5;
+      z-index: 1;
+      padding: 0 20px;
     }
-
-    .restart-btn button {
-      position: absolute;
-      bottom: 30px;
-      background: #1e88e5;
+    .love-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: purple;
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 20px;
+      border-radius: 25px;
       font-size: 1em;
       cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
-
+    .space-theme {
+      background: #000d1a;
+      position: relative;
+    }
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
     .star {
       position: absolute;
       width: 2px;
       height: 2px;
       background: white;
       border-radius: 50%;
-      animation: fall 5s linear infinite;
+      animation: starMove 20s linear infinite;
     }
-
-    @keyframes fall {
+    @keyframes starMove {
       0% {
-        transform: translateY(-10px) translateX(0);
-        opacity: 1;
+        transform: translateY(0) translateX(0);
       }
       100% {
-        transform: translateY(100vh) translateX(-50px);
-        opacity: 0;
+        transform: translateY(100vh) translateX(100vw);
       }
+    }
+    .final-message {
+      color: white;
+      font-size: 1.5em;
+      text-align: center;
+      z-index: 1;
+      padding: 0 20px;
+    }
+    .restart-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
     }
   </style>
 </head>
 <body>
-  <button class="card-btn" id="openCard">💌</button>
+  <div id="heart-container"></div>
 
-  <div class="message-box" id="messageBox">
-    <p>FELIZ DIA DOS NAMORADOS MEU AMOR ❤</p>
-    <p>Você é a luz que ilumina meus dias ☀</p>
-    <p>Eu te amo muito, minha estrelinha ✨</p>
-    <p>Juntos para sempre 🌺</p>
+  <button class="card-button" id="openCard">💌</button>
+
+  <div class="message" id="loveMessage">
+    <p>Feliz dia dos namorados</p>
+    <p>Você é especial</p>
+    <p>Meu amor, minha estrelinha</p>
+    <p>Eu te amo muito</p>
+    <button class="love-button" id="loveBtn">Quer saber o quanto te amo?</button>
   </div>
 
-  <div class="love-btn" id="loveBtn">
-    <button>Quer saber o quanto te amo?</button>
-  </div>
+  <div id="stars"></div>
 
-  <div class="space-message" id="spaceMessage">
-    <p>Na mesma quantidade das estrelas infinitas no céu</p>
-  </div>
-
-  <div class="restart-btn" id="restartBtn">
-    <button>Recomeçar</button>
+  <div class="message final-message" id="finalText" style="display: none;">
+    Na mesma quantidade das estrelas infinitas no céu
+    <br>
+    <button class="restart-button" onclick="location.reload()">Recomeçar</button>
   </div>
 
   <script>
     const openCard = document.getElementById("openCard");
-    const messageBox = document.getElementById("messageBox");
+    const loveMessage = document.getElementById("loveMessage");
+    const heartContainer = document.getElementById("heart-container");
+    const starsContainer = document.getElementById("stars");
+    const finalText = document.getElementById("finalText");
     const loveBtn = document.getElementById("loveBtn");
-    const spaceMessage = document.getElementById("spaceMessage");
-    const restartBtn = document.getElementById("restartBtn");
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    function createStars() {
+      for (let i = 0; i < 150; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.top = Math.random() * window.innerHeight + "px";
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.animationDuration = (Math.random() * 20 + 10) + "s";
+        starsContainer.appendChild(star);
+      }
+    }
 
     openCard.addEventListener("click", () => {
       openCard.style.display = "none";
-      messageBox.style.display = "block";
-      loveBtn.style.display = "block";
-      createHearts(20);
-      setTimeout(() => {
-        document.querySelectorAll('.heart').forEach(el => el.remove());
-      }, 2000);
+      loveMessage.style.display = "block";
     });
 
-    loveBtn.querySelector("button").addEventListener("click", () => {
-      document.body.style.background = "#0d1b2a"; // fundo azul escuro
-      messageBox.style.display = "none";
-      loveBtn.style.display = "none";
-      spaceMessage.style.display = "block";
-      restartBtn.style.display = "block";
-      createStars(100);
+    loveBtn.addEventListener("click", () => {
+      document.body.classList.add("space-theme");
+      loveMessage.style.display = "none";
+      finalText.style.display = "block";
+      heartContainer.innerHTML = "";
+      createStars();
     });
 
-    restartBtn.querySelector("button").addEventListener("click", () => {
-      location.reload();
-    });
-
-    function createStars(count) {
-      for (let i = 0; i < count; i++) {
-        const star = document.createElement("div");
-        star.classList.add("star");
-        star.style.left = Math.random() * window.innerWidth + "px";
-        star.style.top = "-" + Math.random() * 100 + "px";
-        star.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(star);
-      }
-    }
-
-    function createHearts(count) {
-      for (let i = 0; i < count; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.top = "-" + Math.random() * 100 + "px";
-        heart.style.animationDuration = (Math.random() * 5 + 3) + "s";
-        document.body.appendChild(heart);
-      }
-    }
+    // Corações iniciais
+    setInterval(createHeart, 300);
   </script>
 </body>
 </html>
