@@ -19,8 +19,7 @@
     }
 
     body {
-      background: #fce4ec;
-      background-image: url('https://i.imgur.com/mTF2Cev.png'); /* imagem com flores suaves */
+      background: #ffd1dc;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -29,6 +28,45 @@
       justify-content: center;
       flex-direction: column;
       transition: background 1s ease;
+    }
+
+    .heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: fallHeart 10s linear infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -5px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -5px;
+      top: 0;
+    }
+
+    @keyframes fallHeart {
+      0% {
+        transform: translateY(-10px) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
     }
 
     .card-btn {
@@ -110,10 +148,6 @@
         opacity: 0;
       }
     }
-
-    .hidden {
-      display: none !important;
-    }
   </style>
 </head>
 <body>
@@ -131,7 +165,7 @@
   </div>
 
   <div class="space-message" id="spaceMessage">
-    Na mesma quantidade das estrelas infinitas no céu
+    <p>Na mesma quantidade das estrelas infinitas no céu</p>
   </div>
 
   <div class="restart-btn" id="restartBtn">
@@ -149,11 +183,14 @@
       openCard.style.display = "none";
       messageBox.style.display = "block";
       loveBtn.style.display = "block";
+      createHearts(20);
+      setTimeout(() => {
+        document.querySelectorAll('.heart').forEach(el => el.remove());
+      }, 2000);
     });
 
     loveBtn.querySelector("button").addEventListener("click", () => {
       document.body.style.background = "#0d1b2a"; // fundo azul escuro
-      document.body.style.backgroundImage = "none";
       messageBox.style.display = "none";
       loveBtn.style.display = "none";
       spaceMessage.style.display = "block";
@@ -173,6 +210,17 @@
         star.style.top = "-" + Math.random() * 100 + "px";
         star.style.animationDuration = (Math.random() * 3 + 2) + "s";
         document.body.appendChild(star);
+      }
+    }
+
+    function createHearts(count) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "-" + Math.random() * 100 + "px";
+        heart.style.animationDuration = (Math.random() * 5 + 3) + "s";
+        document.body.appendChild(heart);
       }
     }
   </script>
