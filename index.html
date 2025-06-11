@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dia dos Namorados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Great Vibes', cursive;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #b3ecff, #e6f9ff);
+      transition: background 1s ease;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      flex-direction: column;
+      padding: 20px;
+      position: relative;
+    }
+
+    .card-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+    }
+
+    .card-icon {
+      width: 120px;
+    }
+
+    .message {
+      display: none;
+      font-size: 2rem;
+      color: #2e4d4d;
+      animation: fadeIn 2s forwards;
+    }
+
+    .love-button, .restart-btn {
+      background: #336699;
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .star {
+      position: fixed;
+      top: 0;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: fallStar 5s linear infinite;
+      z-index: 1;
+    }
+
+    .stars-active {
+      background: #000;
+    }
+
+    @keyframes fallStar {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .waterfall {
+      background: url('https://media.giphy.com/media/1kUklavgr8M8g/giphy.gif') no-repeat center center/cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container waterfall" id="main">
+    <button class="card-btn" id="openCard">
+      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="card-icon" alt="Carta">
+    </button>
+
+    <div class="message" id="msg">
+      Feliz dia dos namorados, você é especial, meu amor, minha estrelinha, eu te amo muito.
+    </div>
+
+    <button class="love-button" id="loveBtn" style="display:none;">Quer saber o quanto te amo?</button>
+  </div>
+
+  <script>
+    const cardBtn = document.getElementById("openCard");
+    const loveBtn = document.getElementById("loveBtn");
+    const msg = document.getElementById("msg");
+    const main = document.getElementById("main");
+
+    cardBtn.addEventListener("click", () => {
+      cardBtn.style.display = "none";
+      msg.style.display = "block";
+      loveBtn.style.display = "block";
+    });
+
+    loveBtn.addEventListener("click", () => {
+      document.body.classList.add("stars-active");
+      main.classList.remove("waterfall");
+      main.innerHTML = `
+        <div class="message" style="color: white; font-size: 1.5rem;">Na mesma quantidade das estrelas infinitas no céu</div>
+        <button class="restart-btn" onclick="location.reload()">Recomeçar</button>
+      `;
+
+      setInterval(() => {
+        let star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 5000);
+      }, 100);
+    });
+  </script>
+</body>
+</html>
